@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 interface movie {
   original_title: string;
   release_date: string;
   overview: string;
+  id: number;
 }
 
 async function getMovies() {
@@ -30,6 +33,7 @@ export default async function Home() {
               <h2>{movie.original_title}</h2>
               <p>{movie.overview}</p>
               <h3>{movie.release_date}</h3>
+              <Link href={`/movie/${movie.id}`}>Details</Link>
             </div>
           );
         })}
