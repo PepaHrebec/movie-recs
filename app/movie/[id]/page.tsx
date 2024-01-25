@@ -1,7 +1,10 @@
+import Image from "next/image";
+
 interface movie {
   original_title: string;
   release_date: string;
   overview: string;
+  poster_path: string;
 }
 
 async function getMovie(id: string) {
@@ -24,6 +27,14 @@ export default async function Movie({ params }: { params: { id: string } }) {
     <main>
       <div>
         <h1>{movie.original_title}</h1>
+        <Image
+          src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+          alt="Picture of the author"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100%", height: "auto" }}
+        />
       </div>
     </main>
   );
