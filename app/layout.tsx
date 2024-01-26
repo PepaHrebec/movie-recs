@@ -18,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={(inter.className, "p-8")}>
-        <Search />
+        <header className="flex flex-row content-center">
+          <h1 className="pr-10 font-bold text-2xl">LetterJoexd</h1>
+          <Search />
+        </header>
         <main className="pt-8">{children}</main>
       </body>
     </html>

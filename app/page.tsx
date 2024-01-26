@@ -37,7 +37,7 @@ export default async function Home() {
   const movies = await getMovies();
   return (
     <main className="flex min-h-screen flex-col justify-between">
-      <h1>Popular movies</h1>
+      <h1 className="font-bold text-xl">Popular movies</h1>
       <div className="grid md:grid-cols-2 sm:grid-cols-1 justify-items-center">
         {movies.map((movie: movie) => {
           return (
