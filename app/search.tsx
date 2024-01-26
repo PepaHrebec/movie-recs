@@ -3,20 +3,20 @@
 import { useState, useEffect } from "react";
 import { searchFetch } from "./actions";
 
-// async function fetchData(name: string) {
-//   let timeout = setTimeout(async () => {
-//     const movie = await searchFetch(name);
-//     console.log(movie);
-//   });
-// }
+async function fetchData(name: string) {
+  if (name === "") {
+    return;
+  }
+  const movie = await searchFetch(name);
+  console.log(movie);
+}
 
 export default function Search() {
   const [movieSearch, setMovieSearch] = useState("");
 
   useEffect(() => {
     let timeout = setTimeout(async () => {
-      const movie = await searchFetch(movieSearch);
-      console.log(movie);
+      await fetchData(movieSearch);
     }, 500);
     return () => clearTimeout(timeout);
   }, [movieSearch]);

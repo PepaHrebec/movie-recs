@@ -24,10 +24,10 @@ async function getMovies() {
 
 function Card({ original_title, overview, release_date, id }: movie) {
   return (
-    <div>
-      <h2>{original_title}</h2>
-      <p>{overview}</p>
-      <h3>{release_date}</h3>
+    <div className="pt-6 w-10/12">
+      <h2 className="font-bold mb-4">{original_title}</h2>
+      <p className="mb-4">{overview}</p>
+      <div>{release_date}</div>
       <Link href={`/movie/${id}`}>Details</Link>
     </div>
   );
@@ -36,9 +36,9 @@ function Card({ original_title, overview, release_date, id }: movie) {
 export default async function Home() {
   const movies = await getMovies();
   return (
-    <main className="flex min-h-screen flex-col justify-between p-24">
+    <main className="flex min-h-screen flex-col justify-between">
       <h1>Popular movies</h1>
-      <div className="grid md:grid-cols-2 sm:grid-cols-1">
+      <div className="grid md:grid-cols-2 sm:grid-cols-1 justify-items-center">
         {movies.map((movie: movie) => {
           return (
             <Card
