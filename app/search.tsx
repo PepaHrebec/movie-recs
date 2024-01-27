@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { searchFetch } from "./actions";
+import Link from "next/link";
 
 interface movie {
   original_title: string;
@@ -47,13 +48,13 @@ export default function Search() {
         {movies !== undefined && movies.length !== 0 && visible
           ? movies.map((movie) => {
               return (
-                <a
+                <Link
                   key={movie.id}
                   href={`/movie/${movie.id}`}
                   className="bg-white p-1"
                 >
                   {movie.original_title ?? movie.original_name}
-                </a>
+                </Link>
               );
             })
           : ""}

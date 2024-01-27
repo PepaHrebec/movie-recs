@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Search from "./search";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={(inter.className, "p-8")}>
         <header className="flex flex-row content-center">
-          <h1 className="pr-10 font-bold text-2xl">LetterJoexd</h1>
+          <Link href={"/"} className="pr-10 font-bold text-2xl">
+            LetterJoexd
+          </Link>
           <Search />
         </header>
         <main className="pt-8">{children}</main>
