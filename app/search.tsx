@@ -23,6 +23,7 @@ async function fetchData(name: string) {
 export default function Search() {
   const [movieSearch, setMovieSearch] = useState("");
   const [movies, setMovies] = useState<movie[]>([]);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     let timeout = setTimeout(async () => {
@@ -38,14 +39,21 @@ export default function Search() {
         placeholder="Movie..."
         value={movieSearch}
         onChange={(e) => setMovieSearch(e.target.value)}
+        onFocus={() => setVisible(true)}
+        onBlur={() => setTimeout(() => setVisible(false), 100)}
+        className="p-2"
       />
-      <div className="absolute bottom-0 translate-y-full w-96">
-        {movies !== undefined && movies.length !== 0
+      <div className="absolute bottom-0 translate-y-full w-96 flex flex-col">
+        {movies !== undefined && movies.length !== 0 && visible
           ? movies.map((movie) => {
               return (
-                <div key={movie.id} className="bg-white">
+                <a
+                  key={movie.id}
+                  href={`/movie/${movie.id}`}
+                  className="bg-white p-1"
+                >
                   {movie.original_title ?? movie.original_name}
-                </div>
+                </a>
               );
             })
           : ""}
