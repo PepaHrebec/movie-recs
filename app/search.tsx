@@ -42,23 +42,25 @@ export default function Search() {
         onChange={(e) => setMovieSearch(e.target.value)}
         onFocus={() => setVisible(true)}
         onBlur={() => setTimeout(() => setVisible(false), 100)}
-        className="p-2"
+        className="p-2 rounded-md border-gray-500 border-solid border"
       />
-      <div className="absolute bottom-0 translate-y-full w-96 flex flex-col">
-        {movies !== undefined && movies.length !== 0 && visible
-          ? movies.map((movie) => {
-              return (
-                <Link
-                  key={movie.id}
-                  href={`/movie/${movie.id}`}
-                  className="bg-white p-1"
-                >
-                  {movie.original_title ?? movie.original_name}
-                </Link>
-              );
-            })
-          : ""}
-      </div>
+      {movies !== undefined && movies.length !== 0 && visible ? (
+        <div className="absolute bottom-0 translate-y-[105%] w-full flex flex-col rounded-md border border-solid border-gray-500">
+          {movies.map((movie) => {
+            return (
+              <Link
+                key={movie.id}
+                href={`/movie/${movie.id}`}
+                className="bg-white p-1 first:rounded-t-md last:rounded-b-md border-b border-gray-400 hover:bg-gray-100"
+              >
+                {movie.original_title ?? movie.original_name}
+              </Link>
+            );
+          })}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
