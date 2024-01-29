@@ -5,6 +5,7 @@ interface movie {
   release_date: string;
   overview: string;
   poster_path: string;
+  vote_average: number;
 }
 
 async function getMovie(id: string) {
@@ -24,17 +25,23 @@ export default async function Movie({ params }: { params: { id: string } }) {
   const movie: movie = await getMovie(params.id);
 
   return (
-    <main>
+    <main className="flex flex-col gap-4">
       <div>
-        <h1>{movie.original_title}</h1>
         <Image
           src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
           alt="Picture of the poster"
           width={0}
           height={0}
           sizes="100vw"
-          style={{ width: "100%", height: "auto" }}
+          style={{ width: "100%", height: "auto", borderRadius: "12px" }}
         />
+      </div>
+      <div className="flex flex-col">
+        <h1 className="font-bold text-2xl">{movie.original_title}</h1>
+        <h2 className="mb-4 text-lg">
+          {Math.round(movie.vote_average * 10) / 10} / 10
+        </h2>
+        <p>{movie.overview}</p>
       </div>
     </main>
   );

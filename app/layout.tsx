@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={(inter.className, "p-8")}>
         <header className="flex flex-col gap-4 sm:flex-row content-center">
-          <Link href={"/"} className="font-bold text-3xl">
+          <Link href={"/"} className="font-bold text-3xl w-min">
             LetterJoexd
           </Link>
           <Search />
