@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { shortenSummary } from "./lib";
 
 interface movie {
   original_title: string;
@@ -7,6 +8,7 @@ interface movie {
   overview: string;
   id: number;
   poster_path: string;
+  title: string;
 }
 
 async function getMovies() {
@@ -22,13 +24,6 @@ async function getMovies() {
   );
   const movies = await moviesJson.json();
   return movies.results;
-}
-
-function shortenSummary(str: string, length: number = 300) {
-  if (str.length <= length) {
-    return str;
-  }
-  return `${str.slice(0, length)}...`;
 }
 
 function parseDate(str: string) {
@@ -56,6 +51,7 @@ function Card({
   release_date,
   id,
   poster_path,
+  title,
 }: movie) {
   return (
     <div className="pt-6 w-10/12 flex flex-col sm:flex-row gap-4">
@@ -74,7 +70,7 @@ function Card({
           href={`/movie/${id}`}
           className="font-bold mb-4 text-xl hover:underline"
         >
-          {original_title}
+          {title ? title : original_title}
         </Link>
         <p className="mb-4 text-balance flex-1">{shortenSummary(overview)}</p>
         <div>{parseDate(release_date)}</div>
@@ -101,6 +97,7 @@ export default async function Home() {
               release_date={movie.release_date}
               id={movie.id}
               poster_path={movie.poster_path}
+              title={movie.title}
             />
           );
         })}

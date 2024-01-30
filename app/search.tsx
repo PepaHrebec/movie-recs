@@ -23,7 +23,7 @@ async function fetchData(name: string) {
 
 export default function Search() {
   const [movieSearch, setMovieSearch] = useState("");
-  const [movies, setMovies] = useState<movie[]>([]);
+  const [movies, setMovies] = useState<movie[] | undefined>([]);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

@@ -1,14 +1,7 @@
 "use server";
 
-interface movie {
-  original_title: string;
-  original_name: string;
-  release_date: string;
-  first_air_date: string;
-  overview: string;
-  id: number;
-  vote_average: number;
-}
+import { sortByBest } from "./lib";
+import { movie } from "./types";
 
 export async function searchFetch(name: string) {
   const moviesJson = await fetch(
@@ -23,9 +16,8 @@ export async function searchFetch(name: string) {
   );
   const nestedMovies = await moviesJson.json();
 
-  const movies = nestedMovies.results;
-  console.log(movies);
-  const normalizedMovieNames = (movies as movie[]).map((movie) => {
+  const movies: movie[] = nestedMovies.results;
+  const normalizedMovieNames = movies.map((movie) => {
     if (movie.original_title !== undefined) {
       return movie.original_title.normalize("NFC").toLocaleLowerCase();
     }
@@ -33,7 +25,7 @@ export async function searchFetch(name: string) {
   });
 
   if (new Set(normalizedMovieNames).size !== movies.length) {
-    (movies as movie[]).forEach((movie) => {
+    movies.forEach((movie) => {
       movie.original_title = `${movie.original_title} (${
         movie.release_date
           ? movie.release_date.split("-")[0]
@@ -43,7 +35,5 @@ export async function searchFetch(name: string) {
       })`;
     });
   }
-  return movies.slice(0, 5).sort((a: movie, b: movie) => {
-    return b.vote_average - a.vote_average;
-  });
+  return sortByBest(movies, 5);
 }
