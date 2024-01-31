@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Search from "./search";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/public/logo.png";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +22,22 @@ export default function RootLayout({
     <html lang="en">
       <body className={(inter.className, "p-8")}>
         <header className="flex flex-col gap-4 sm:flex-row content-center">
-          <Link href={"/"} className="font-bold text-3xl w-min">
-            LetterJoexd
-          </Link>
+          <div className="flex flex-row gap-4">
+            <Link
+              href={"/"}
+              className="font-bold text-3xl w-min text-center leading-normal"
+            >
+              LetterJoexd
+            </Link>
+            <Image
+              src={logo}
+              alt="Picture of the poster"
+              priority={true}
+              width={90}
+              height={25}
+            />
+          </div>
+
           <Search />
         </header>
         <main className="pt-8">{children}</main>

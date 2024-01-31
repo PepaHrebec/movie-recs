@@ -34,7 +34,7 @@ export default async function Movie({ params }: { params: { id: string } }) {
   const similarMovies: movie[] = await fetcher(params.id, true);
 
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+    <div className="flex flex-col gap-4 md:flex-row sm:justify-center">
       <div className="flex flex-col gap-4 sm:flex-row max-w-[1124px]">
         <div className="sm:flex-1">
           <Image
@@ -79,12 +79,15 @@ export default async function Movie({ params }: { params: { id: string } }) {
                   return (
                     <div key={movie.id} className="flex flex-col">
                       <div className="flex flex-row">
-                        <Link href={`/movie/${movie.id}`} className="font-bold">
+                        <Link
+                          href={`/movie/${movie.id}`}
+                          className="font-bold hover:underline"
+                        >
                           {movie.title ? movie.title : movie.original_title}
-                          <span className="ml-2 text-sm px-2 py-1 bg-gray-200 w-fit rounded-md text-nowrap">
-                            {Math.round(movie.vote_average * 10) / 10} / 10
-                          </span>
                         </Link>
+                        <div className="ml-2 text-sm px-2 bg-gray-200 w-fit rounded-md text-nowrap text-center leading-normal">
+                          {Math.round(movie.vote_average * 10) / 10} / 10
+                        </div>
                       </div>
                       <p>
                         {shortenSummary(movie.overview, 100)}

@@ -54,7 +54,7 @@ function Card({
   title,
 }: movie) {
   return (
-    <div className="pt-6 w-10/12 flex flex-col sm:flex-row gap-4">
+    <div className="pt-6 w-10/12 flex flex-col sm:flex-row sm:max-w-[580px] sm:min-w-[510px] lg:w-[520px] gap-4">
       <div className="flex-1">
         <Image
           src={`https://image.tmdb.org/t/p/original/${poster_path}`}

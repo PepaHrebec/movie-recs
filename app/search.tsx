@@ -42,7 +42,7 @@ export default function Search() {
         onChange={(e) => setMovieSearch(e.target.value)}
         onFocus={() => setVisible(true)}
         onBlur={() => setTimeout(() => setVisible(false), 100)}
-        className="p-2 rounded-md border-gray-500 border-solid border"
+        className="p-2 rounded-md border-gray-500 border-solid border sm:w-72"
       />
       {movies !== undefined && movies.length !== 0 && visible ? (
         <div className="absolute bottom-0 translate-y-[105%] w-full flex flex-col rounded-md border border-solid border-gray-500">
