@@ -1,10 +1,10 @@
-import { movie } from "../lib/types";
+import { Movie } from "../lib/types";
 import Link from "next/link";
 import { shortenSummary } from "../lib/lib";
 import { fetcher } from "../actions";
 
 export default async function SimilarMovies({ id }: { id: string }) {
-  const similarMovies: movie[] = await fetcher(id, true);
+  const similarMovies: Movie[] = await fetcher(id, true);
 
   return (
     <>

@@ -34,7 +34,7 @@ export default function Search() {
   }, [movieSearch]);
 
   return (
-    <div className="flex flex-col justify-end relative">
+    <div className="flex flex-col justify-end relative flex-1">
       <input
         type="text"
         placeholder="Movie..."
@@ -45,7 +45,7 @@ export default function Search() {
         className="p-2 rounded-md border-gray-500 border-solid border sm:w-72"
       />
       {movies !== undefined && movies.length !== 0 && visible ? (
-        <div className="absolute bottom-0 translate-y-[105%] w-full flex flex-col rounded-md border border-solid border-gray-500">
+        <div className="absolute bottom-0 translate-y-[105%] flex flex-col rounded-md border border-solid border-gray-500 sm:w-72">
           {movies.map((movie) => {
             return (
               <Link
