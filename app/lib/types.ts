@@ -1,4 +1,6 @@
-export interface movie {
+import { RowDataPacket } from "mysql2";
+
+export interface Movie {
   original_title: string;
   original_name: string;
   title: string;
@@ -12,4 +14,8 @@ export interface movie {
     id: number;
     name: string;
   }[];
+}
+
+export interface IUser extends RowDataPacket {
+  hashed_password: string;
 }
