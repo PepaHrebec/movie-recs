@@ -12,7 +12,7 @@ export default async function LayoutProfileMngmnt({
       {user?.username ? (
         <div className="flex flex-row gap-4">
           <div className="flex justify-center items-center">
-            <div>{user.username}</div>
+            <Link href={"/profile"}>{user.username}</Link>
           </div>
           <form action={logout}>
             <button
