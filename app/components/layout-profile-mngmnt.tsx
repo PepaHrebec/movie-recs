@@ -1,6 +1,6 @@
 import { User } from "lucia";
 import Link from "next/link";
-import { logout } from "../actions";
+import { logout } from "../actions/user-actions";
 
 export default async function LayoutProfileMngmnt({
   user,

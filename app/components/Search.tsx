@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { searchFetch } from "../actions";
+import { searchFetch } from "../actions/tmdb-actions";
 import Link from "next/link";
 
 interface movie {

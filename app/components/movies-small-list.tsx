@@ -34,7 +34,9 @@ export async function MoviesSmallList({
                 <p className="mb-1">
                   {shortenSummary(movie.overview, 100)}
                   {"  ("}
-                  {movie.release_date.split("-")[0]}
+                  {movie.release_date.split("-")[0] !== ""
+                    ? movie.release_date.split("-")[0]
+                    : "?"}
                   {")"}
                 </p>
                 <Favourite

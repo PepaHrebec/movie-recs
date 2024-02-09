@@ -1,5 +1,5 @@
 import { User } from "lucia";
-import { removeFavourite, setFavourite } from "../actions";
+import { removeFavourite, setFavourite } from "../actions/favourite-actions";
 
 export default async function Favourite({
   user,

@@ -1,5 +1,5 @@
 import { Movie } from "../lib/types";
-import { fetcher } from "../actions";
+import { fetcher } from "../actions/tmdb-actions";
 import { MoviesSmallList } from "./movies-small-list";
 
 export default async function SimilarMovies({ id }: { id: string }) {
