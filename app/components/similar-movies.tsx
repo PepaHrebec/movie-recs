@@ -8,7 +8,7 @@ export default async function SimilarMovies({ id }: { id: string }) {
   return (
     <>
       <h3 className="font-bold text-lg mb-3">Similar movies</h3>
-      <MoviesSmallList movies={similarMovies} />
+      <MoviesSmallList movies={similarMovies} user={null} bigText={true} />
     </>
   );
 }
