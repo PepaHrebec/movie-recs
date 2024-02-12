@@ -48,6 +48,9 @@ export async function fetcher(id: string, similar: boolean = false) {
           accept: "application/json",
           Authorization: `${process.env.API_TOKEN}`,
         },
+        next: {
+          revalidate: 7200,
+        },
       }
     );
     const movie = await movieJson.json();
