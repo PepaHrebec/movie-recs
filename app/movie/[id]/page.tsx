@@ -5,15 +5,19 @@ import { fetcher } from "@/app/actions/tmdb-actions";
 import { isFavourite } from "@/app/actions/favourite-actions";
 import SimilarMovies from "@/app/components/similar-movies";
 import Favourite from "@/app/components/favourite";
+import Rating from "@/app/components/rating";
+import { getRating } from "@/app/actions/rating-actions";
 
 export default async function Movie({ params }: { params: { id: string } }) {
   const movie: Movie = await fetcher(params.id);
 
   const { user } = await validateRequest();
   let isFav: boolean | undefined = false;
+  let rating: number | null = null;
 
   if (user) {
     isFav = await isFavourite(params.id, user.id);
+    rating = await getRating(movie, user);
   }
 
   return (
@@ -29,6 +33,9 @@ export default async function Movie({ params }: { params: { id: string } }) {
             style={{ width: "100%", height: "auto", borderRadius: "12px" }}
             priority={true}
           />
+          <div className="flex flex-row justify-center pt-4">
+            <Rating movie={movie} defaultRatingProp={rating} user={user} />
+          </div>
         </div>
         <div className="flex flex-col sm:flex-[2]">
           <h1 className="font-bold text-2xl">

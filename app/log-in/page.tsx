@@ -1,7 +1,7 @@
 "use client";
 
 import MyForm from "../components/my-form";
-import { login } from "../actions";
+import { login } from "../actions/user-actions";
 import { UserSchema } from "../lib/zod-schemas";
 import toast from "react-hot-toast";
 import { getErrorString } from "../lib/lib";

@@ -2,7 +2,7 @@
 
 import toast from "react-hot-toast";
 import MyForm from "../components/my-form";
-import { signup } from "../actions";
+import { signup } from "../actions/user-actions";
 import { UserSchema } from "../lib/zod-schemas";
 import { getErrorString } from "../lib/lib";
 

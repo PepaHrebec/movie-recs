@@ -19,3 +19,7 @@ export interface Movie {
 export interface IUser extends RowDataPacket {
   hashed_password: string;
 }
+
+export interface IRating extends RowDataPacket {
+  rating: number;
+}

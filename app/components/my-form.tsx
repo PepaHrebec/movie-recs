@@ -31,7 +31,7 @@ export default function MyForm({
           name="password"
           id="password"
           placeholder="SuperSecretPassword"
-          className="border-black border rounded-md py-1 pl-2 w-full"
+          className="border-black border rounded-md mb-2 py-1 pl-2 w-full"
         />
         <p className="mb-4 font-light">{passwordP}</p>
         <button className="p-2 rounded-md bg-slate-300 text-lg">Submit</button>

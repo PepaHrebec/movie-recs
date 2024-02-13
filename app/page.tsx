@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { shortenSummary } from "./lib";
+import { shortenSummary, parseDate } from "./lib/lib";
 
 interface movie {
   original_title: string;
@@ -26,25 +26,6 @@ async function getMovies() {
   return movies.results;
 }
 
-function parseDate(str: string) {
-  const month = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const arr = str.split("-");
-  return `${month[Number(arr[1]) - 1]} ${arr[2]}, ${arr[0]}`;
-}
-
 function Card({
   original_title,
   overview,
@@ -57,8 +38,8 @@ function Card({
     <div className="pt-6 w-10/12 flex flex-col sm:flex-row sm:max-w-[580px] sm:min-w-[510px] lg:w-[520px] gap-4">
       <div className="flex-1">
         <Image
-          src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-          alt="Picture of the author"
+          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+          alt="Picture of the poster."
           width={0}
           height={0}
           sizes="100vw"

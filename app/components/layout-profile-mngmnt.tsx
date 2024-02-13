@@ -12,12 +12,17 @@ export default async function LayoutProfileMngmnt({
       {user?.username ? (
         <div className="flex flex-row gap-4">
           <div className="flex justify-center items-center">
-            <Link href={"/profile"}>{user.username}</Link>
+            <Link
+              href={"/profile"}
+              className="w-fit text-nowrap hover:underline hover:underline-offset-1"
+            >
+              {user.username}
+            </Link>
           </div>
           <form action={logout}>
             <button
               type="submit"
-              className="p-2 rounded-md bg-slate-200 hover:bg-slate-300 w-fit"
+              className="p-2 rounded-md bg-slate-200 hover:bg-slate-300 w-fit text-nowrap"
             >
               Log-out
             </button>
@@ -25,10 +30,16 @@ export default async function LayoutProfileMngmnt({
         </div>
       ) : (
         <div className="flex flex-row gap-4">
-          <Link href={"/log-in"} className="w-fit text-nowrap">
+          <Link
+            href={"/log-in"}
+            className="w-fit text-nowrap hover:underline hover:underline-offset-1"
+          >
             Log-in
           </Link>
-          <Link href={"/sign-up"} className="w-fit text-nowrap">
+          <Link
+            href={"/sign-up"}
+            className="w-fit text-nowrap hover:underline hover:underline-offset-1"
+          >
             Sign-up
           </Link>
         </div>

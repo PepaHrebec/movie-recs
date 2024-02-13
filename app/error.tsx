@@ -9,7 +9,7 @@ export default function Error({
 }) {
   return (
     <div className="flex flex-col items-center justify-center">
-      <h2>We couldn&apos;t have found this movie, sorry.</h2>
+      <h2>We can&apos;t find this movie, sorry.</h2>
       <Link href={"/"}>Go back home</Link>
     </div>
   );

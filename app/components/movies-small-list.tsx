@@ -8,13 +8,15 @@ export async function MoviesSmallList({
   movies,
   user = null,
   bigText,
+  summaryLength = 100,
 }: {
   movies: Movie[];
   user: User | null;
   bigText: boolean;
+  summaryLength: number;
 }) {
   return (
-    <div className="pl-3 flex flex-col gap-4 text-base">
+    <div className="pl-3 flex flex-col gap-2 text-base">
       {movies.length !== 0
         ? movies.map((movie) => {
             return (
@@ -32,7 +34,9 @@ export async function MoviesSmallList({
                 </div>
 
                 <p className="mb-1">
-                  {shortenSummary(movie.overview, 100)}
+                  {shortenSummary(movie.overview, summaryLength)
+                    ? shortenSummary(movie.overview, summaryLength)
+                    : "Summary not found."}
                   {"  ("}
                   {movie.release_date.split("-")[0] !== ""
                     ? movie.release_date.split("-")[0]
@@ -45,6 +49,7 @@ export async function MoviesSmallList({
                   user={user}
                   bigText={bigText}
                 />
+                {user ? <div className="mb-1"></div> : ""}
               </div>
             );
           })
