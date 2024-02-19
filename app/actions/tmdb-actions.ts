@@ -1,9 +1,12 @@
 "use server";
 
-import { Movie } from "../lib/types";
+import { IGenre, ISimilarMovie, Movie } from "../lib/types";
 import { sortByBest } from "../lib/lib";
 
-export async function searchFetch(name: string) {
+export async function searchFetch(
+  name: string,
+  returnAmount: number | undefined
+) {
   const moviesJson = await fetch(
     `https://api.themoviedb.org/3/search/movie?query=${name}`,
     {
@@ -16,7 +19,7 @@ export async function searchFetch(name: string) {
   );
   const nestedMovies = await moviesJson.json();
 
-  const movies: Movie[] = nestedMovies.results;
+  const movies: ISimilarMovie[] = nestedMovies.results;
   const normalizedMovieNames = movies.map((movie) => {
     if (movie.original_title !== undefined) {
       return movie.original_title.normalize("NFC").toLocaleLowerCase();
@@ -35,7 +38,23 @@ export async function searchFetch(name: string) {
       })`;
     });
   }
-  return sortByBest(movies, 5);
+  return sortByBest(movies, returnAmount);
+}
+
+export async function genreFetch() {
+  const genresJson = await fetch(
+    "https://api.themoviedb.org/3/genre/movie/list?language=en",
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `${process.env.API_TOKEN}`,
+      },
+    }
+  );
+  const nestedGenres = await genresJson.json();
+  const genres: IGenre[] = nestedGenres.genres;
+  return genres;
 }
 
 export async function fetcher(id: string, similar: boolean = false) {
