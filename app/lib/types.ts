@@ -23,3 +23,12 @@ export interface IUser extends RowDataPacket {
 export interface IRating extends RowDataPacket {
   rating: number;
 }
+
+export interface IGenre {
+  id: number;
+  name: string;
+}
+
+export interface ISimilarMovie extends Movie {
+  genre_ids: number[];
+}

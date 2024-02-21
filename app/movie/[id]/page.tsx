@@ -7,6 +7,7 @@ import SimilarMovies from "@/app/components/similar-movies";
 import Favourite from "@/app/components/favourite";
 import Rating from "@/app/components/rating";
 import { getRating } from "@/app/actions/rating-actions";
+import GenreBox from "@/app/components/genre-box";
 
 export default async function Movie({ params }: { params: { id: string } }) {
   const movie: Movie = await fetcher(params.id);
@@ -22,23 +23,29 @@ export default async function Movie({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-col gap-4 md:flex-row sm:justify-center">
-      <div className="flex flex-col gap-4 sm:flex-row max-w-[1124px]">
+      <div className="flex flex-col gap-4 sm:flex-row max-w-[1124px] flex-1">
         <div className="sm:flex-1">
-          <Image
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt="Picture of the poster"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "100%", height: "auto", borderRadius: "12px" }}
-            priority={true}
-          />
+          {movie.poster_path ? (
+            <Image
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              alt="Picture of the poster"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "100%", height: "auto", borderRadius: "4px" }}
+              priority={true}
+            />
+          ) : (
+            <div className="w-full aspect-[2/3] rounded bg-gray-200 flex flex-col justify-center items-center">
+              <p className="text-center text-gray-500">No poster found</p>
+            </div>
+          )}
           <div className="flex flex-row justify-center pt-4">
             <Rating movie={movie} defaultRatingProp={rating} user={user} />
           </div>
         </div>
         <div className="flex flex-col sm:flex-[2]">
-          <h1 className="font-bold text-2xl">
+          <h1 className="font-bold text-2xl pb-1">
             {movie.title ?? movie.original_title}{" "}
             {
               <span className="font-normal text-base">
@@ -59,16 +66,9 @@ export default async function Movie({ params }: { params: { id: string } }) {
           </div>
           <p className="mb-2">{movie.overview}</p>
           <div className="flex flex-row gap-2 flex-wrap my-2 mb-4">
-            {movie.genres.map((genre) => {
-              return (
-                <div
-                  key={genre.id}
-                  className="px-4 py-1 bg-gray-200 w-fit rounded-md"
-                >
-                  {genre.name}
-                </div>
-              );
-            })}
+            {movie.genres.map((genre) => (
+              <GenreBox genre={genre} key={genre.id} />
+            ))}
           </div>
           <SimilarMovies id={params.id} />
         </div>

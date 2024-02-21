@@ -6,5 +6,5 @@ export async function navigate(address: string) {
   if (address === "") {
     return;
   }
-  redirect(`./search/${address}`);
+  redirect(`/search/${address}`);
 }

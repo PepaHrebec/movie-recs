@@ -13,7 +13,7 @@ export default async function Card({
   genres: IGenre[];
 }) {
   return (
-    <div className="flex flex-row gap-2 odd:bg-white even:bg-slate-50 p-4 rounded-md">
+    <div className="flex flex-row gap-2 odd:bg-white even:bg-slate-50 p-4 rounded-md sm:min-w-[480px]">
       <Link href={`/movie/${movie.id}`} className="w-24 min-w-24">
         {movie.poster_path ? (
           <Image

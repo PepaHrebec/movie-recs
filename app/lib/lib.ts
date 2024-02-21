@@ -1,4 +1,4 @@
-import { Movie } from "./types";
+import { ISimilarMovie, Movie } from "./types";
 import { ZodError } from "zod";
 
 export function shortenSummary(str: string, length: number = 300) {
@@ -8,7 +8,7 @@ export function shortenSummary(str: string, length: number = 300) {
   return `${str.slice(0, length)}...`;
 }
 
-export function sortByBest(arr: Movie[], count: number) {
+export function sortByBest(arr: ISimilarMovie[], count: number | undefined) {
   return arr
     .sort((a, b) => {
       return b.vote_average - a.vote_average;
