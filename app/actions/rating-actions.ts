@@ -1,11 +1,12 @@
 "use server";
 
-import { Movie } from "../lib/types";
+import { IMovieRating, IMovie } from "../lib/types";
 import { myPool } from "../lib/auth";
 import { User } from "lucia";
 import { IRating } from "../lib/types";
+import { fetcher } from "./tmdb-actions";
 
-export async function addRating(movie: Movie, rating: number, user: User) {
+export async function addRating(movie: IMovie, rating: number, user: User) {
   try {
     const ratingExists = await getRating(movie, user);
     if (ratingExists) {
@@ -27,7 +28,7 @@ export async function addRating(movie: Movie, rating: number, user: User) {
   }
 }
 
-export async function getRating(movie: Movie, user: User) {
+export async function getRating(movie: IMovie, user: User) {
   try {
     const [results] = await myPool.query<IRating[]>(
       "SELECT rating FROM ratings WHERE ratings_movie = ? AND ratings_user = ?",
@@ -40,4 +41,28 @@ export async function getRating(movie: Movie, user: User) {
     console.log(error);
   }
   return null;
+}
+
+export async function getRatedMovies(user: User) {
+  const [ratedResults] = await myPool.query<IRating[]>(
+    "SELECT ratings_movie, rating FROM ratings WHERE ratings_user = ?",
+    [user.id]
+  );
+
+  const map = new Map();
+  ratedResults.forEach((res) => {
+    map.set(res.ratings_movie, res.rating);
+  });
+
+  const movies: IMovie[] = await Promise.all(
+    ratedResults.map(async (res) => {
+      return await fetcher(res.ratings_movie);
+    })
+  );
+
+  (movies as IMovieRating[]).forEach(
+    (movie) => (movie.rating = map.get(`${movie.id}`))
+  );
+
+  return movies as IMovieRating[];
 }

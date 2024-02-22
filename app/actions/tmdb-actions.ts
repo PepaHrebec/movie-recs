@@ -1,6 +1,6 @@
 "use server";
 
-import { IGenre, ISimilarMovie, Movie } from "../lib/types";
+import { IGenre, ISimilarMovie, IMovie } from "../lib/types";
 import { sortByBest } from "../lib/lib";
 
 export async function searchFetch(
@@ -75,7 +75,7 @@ export async function fetcher(id: string, similar: boolean = false) {
     const movie = await movieJson.json();
     if (similar) {
       return movie.results
-        .sort((a: Movie, b: Movie) => {
+        .sort((a: IMovie, b: IMovie) => {
           return b.vote_average - a.vote_average;
         })
         .slice(0, 4);
