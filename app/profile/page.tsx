@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { validateRequest } from "../lib/auth";
-import { myPool } from "../lib/auth";
-import { Movie } from "../lib/types";
-import { fetcher } from "../actions/tmdb-actions";
 import ProfileMovieCard from "../components/profile-movie-card";
+import { getRatedMovies } from "../actions/rating-actions";
+import { getFavouriteMovies } from "../actions/favourite-actions";
+import ProfileRatedMovie from "../components/profile-rated-movie";
 
 export default async function Page() {
   const { user } = await validateRequest();
@@ -11,16 +11,8 @@ export default async function Page() {
     return redirect("/");
   }
 
-  const [results] = await myPool.query(
-    "SELECT movie FROM favourites WHERE user = ?",
-    [user.id]
-  );
-
-  const movies: Movie[] = await Promise.all(
-    (results as { movie: string }[]).map(async (res) => {
-      return await fetcher(res.movie);
-    })
-  );
+  const favouriteMovies = await getFavouriteMovies(user);
+  const ratedMovies = await getRatedMovies(user);
 
   return (
     <div>
@@ -30,11 +22,29 @@ export default async function Page() {
       </h1>
       <div className="flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center gap-6 sm:flex-row sm:flex-wrap max-w-[1124px]">
-          {movies.map((movie) => {
-            return (
-              <ProfileMovieCard movie={movie} user={user} key={movie.id} />
-            );
-          })}
+          {favouriteMovies.length ? (
+            favouriteMovies.map((movie) => {
+              return (
+                <ProfileMovieCard movie={movie} user={user} key={movie.id} />
+              );
+            })
+          ) : (
+            <div className="p-10"> No movies found, yet... </div>
+          )}
+        </div>
+      </div>
+      <h1 className="text-xl pb-10 pt-10">
+        And here are your reviewed movies.
+      </h1>
+      <div className="flex flex-col justify-center items-center">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 max-w-[1124px] justify-center">
+          {ratedMovies.length ? (
+            ratedMovies.map((movie) => {
+              return <ProfileRatedMovie movie={movie} key={movie.id} />;
+            })
+          ) : (
+            <div className="p-10"> No movies rated, yet... </div>
+          )}
         </div>
       </div>
     </div>
