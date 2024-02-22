@@ -1,4 +1,4 @@
-import { ISimilarMovie, Movie } from "./types";
+import { ISimilarMovie } from "./types";
 import { ZodError } from "zod";
 
 export function shortenSummary(str: string, length: number = 300) {
