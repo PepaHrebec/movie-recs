@@ -1,7 +1,8 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Rating from "@/app/components/rating";
 import { IMovie } from "@/app/lib/types";
+import { User } from "lucia";
 
 const movie: IMovie = {
   genres: [
@@ -22,10 +23,28 @@ const movie: IMovie = {
   vote_average: 5.8,
 };
 
-describe("Rating component.", () => {
+const user: User = {
+  username: "Joe",
+  id: "uuid4",
+};
+
+vi.mock("react", async (importOriginal) => {
+  const testCache = <T extends Function>(func: T) => func;
+  const actual = await importOriginal<typeof import("react")>();
+  return {
+    ...actual,
+    cache: testCache,
+  };
+});
+
+describe("Rating component", () => {
   test("Doesn't render when no user provided.", async () => {
-    // try to fix the cache issue
-    // render(<Rating defaultRatingProp={null} user={null} movie={movie} />);
-    // expect(await screen.findAllByTestId("rating-star")).toBeUndefined();
+    render(<Rating defaultRatingProp={null} user={null} movie={movie} />);
+    expect(screen.queryAllByTestId("rating-star")).toEqual([]);
+  });
+
+  test("Renders when user provided.", async () => {
+    render(<Rating defaultRatingProp={null} user={user} movie={movie} />);
+    expect(screen.queryAllByTestId("rating-star")).toHaveLength(5);
   });
 });
