@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { afterAll, afterEach, describe, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Rating from "@/app/components/rating";
 import { IMovie } from "@/app/lib/types";
