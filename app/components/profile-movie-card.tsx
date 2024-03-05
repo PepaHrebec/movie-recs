@@ -1,4 +1,4 @@
-import { Movie } from "../lib/types";
+import { IMovie } from "../lib/types";
 import { User } from "lucia";
 import Favourite from "./favourite";
 import { shortenSummary } from "../lib/lib";
@@ -8,7 +8,7 @@ export default function ProfileMovieCard({
   movie,
   user,
 }: {
-  movie: Movie;
+  movie: IMovie;
   user: User | null;
 }) {
   return (

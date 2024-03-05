@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { searchFetch } from "../actions/tmdb-actions";
 import Link from "next/link";
-import { Movie } from "../lib/types";
+import { IMovie } from "../lib/types";
 import { navigate } from "../actions/navigation-actions";
 
 async function fetchData(name: string) {
@@ -16,7 +16,7 @@ async function fetchData(name: string) {
 
 export default function Search() {
   const [movieSearch, setMovieSearch] = useState("");
-  const [movies, setMovies] = useState<Movie[] | undefined>([]);
+  const [movies, setMovies] = useState<IMovie[] | undefined>([]);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,10 @@ export default function Search() {
         />
         <button
           className="bg-green-500 hover:bg-green-600 text-white font-semibold h-[42px] px-2 rounded-r-md flex flex-col justify-center items-center relative z-0 -left-1"
-          onClick={() => navigate(movieSearch)}
+          onClick={async () => {
+            await navigate(movieSearch);
+            setMovieSearch("");
+          }}
         >
           Search
         </button>

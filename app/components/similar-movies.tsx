@@ -1,9 +1,9 @@
-import { Movie } from "../lib/types";
+import { IMovie } from "../lib/types";
 import { fetcher } from "../actions/tmdb-actions";
 import { MoviesSmallList } from "./movies-small-list";
 
 export default async function SimilarMovies({ id }: { id: string }) {
-  const similarMovies: Movie[] = await fetcher(id, true);
+  const similarMovies: IMovie[] = await fetcher(id, true);
 
   return (
     <>

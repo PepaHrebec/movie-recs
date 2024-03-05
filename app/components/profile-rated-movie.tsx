@@ -16,6 +16,7 @@ export default function ProfileRatedMovie({ movie }: { movie: IMovieRating }) {
         {[1, 2, 3, 4, 5].map((value) => {
           return (
             <svg
+              data-testid="rating-star"
               key={value}
               className={`w-4 h-4 ms-1 scale-[1.2] ${
                 movie.rating < value ? "text-gray-400" : "text-green-500"

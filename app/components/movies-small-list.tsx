@@ -1,4 +1,4 @@
-import { Movie } from "../lib/types";
+import { IMovie } from "../lib/types";
 import { shortenSummary } from "../lib/lib";
 import Link from "next/link";
 import Favourite from "./favourite";
@@ -10,7 +10,7 @@ export async function MoviesSmallList({
   bigText,
   summaryLength = 100,
 }: {
-  movies: Movie[];
+  movies: IMovie[];
   user: User | null;
   bigText: boolean;
   summaryLength: number;
