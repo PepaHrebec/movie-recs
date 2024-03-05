@@ -10,7 +10,7 @@ export default function MyForm({
   action: (FormData: FormData) => Promise<any>;
 }) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col sm:max-w-lg">
       <h1 className="font-bold text-3xl mb-4">{h1Text}</h1>
       <form action={action}>
         <label htmlFor="username" className="block mb-2 font-semibold">
@@ -34,7 +34,9 @@ export default function MyForm({
           className="border-black border rounded-md mb-2 py-1 pl-2 w-full"
         />
         <p className="mb-4 font-light">{passwordP}</p>
-        <button className="p-2 rounded-md bg-slate-300 text-lg">Submit</button>
+        <button className="p-2 rounded-md bg-slate-300 text-lg hover:bg-slate-400">
+          Submit
+        </button>
       </form>
     </div>
   );
